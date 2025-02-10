@@ -25,12 +25,16 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install django djangorestframework
+          pip install django djangorestframework django-debug-toolbar
 
       - name: Run Migrations
         run: |
           source venv/bin/activate
           python manage.py migrate
+      - name: Collect Static Files
+        run: |
+          source venv/bin/activate
+          python manage.py collectstatic --noinput    
 
       - name: Run Tests
         run: |
