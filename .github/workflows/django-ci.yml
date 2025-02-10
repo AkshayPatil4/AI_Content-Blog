@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature/localization
   pull_request:
     branches:
       - main
