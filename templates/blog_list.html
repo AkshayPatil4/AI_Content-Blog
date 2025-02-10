@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h2>{% trans "Latest AI Articles" %}</h2>
+    
+    <article>
+        <h3>{% trans "The Future of AI" %}</h3>
+        <p>{% trans "Artificial Intelligence is evolving rapidly and impacting various industries. From healthcare to finance, AI is transforming the way we work and live." %}</p>
+    </article>
+
+    <article>
+        <h3>{% trans "AI in Healthcare" %}</h3>
+        <p>{% trans "AI is being used to diagnose diseases, develop personalized treatments, and even assist in surgeries. The potential of AI in medicine is limitless." %}</p>
+    </article>
+
+    <article>
+        <h3>{% trans "The Role of AI in Automation" %}</h3>
+        <p>{% trans "Automation powered by AI is revolutionizing industries by improving efficiency and reducing human effort in repetitive tasks." %}</p>
+    </article>
+{% endblock %}

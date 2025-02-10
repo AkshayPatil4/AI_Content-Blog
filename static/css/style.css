@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    line-height: 1.6;
+    background-color: #f8f8f8;
+}
+
+/* Right-to-Left (RTL) support */
+body[dir="rtl"] {
+    text-align: right;
+    direction: rtl;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #313335;
+    color: white;
+    padding: 10px;
+}
+
+h1 {
+    color: white;
+}
+
+/* Ensures form is aligned correctly in RTL mode */
+body[dir="rtl"] form {
+    text-align: right;
+}
+
+select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+/* Blog articles should respect RTL */
+article {
+    background: #ffffff;
+    padding: 15px;
+    margin: 15px 0;
+    border-left: 5px solid #007BFF;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+body[dir="rtl"] article {
+    text-align: right;
+    border-left: none;
+    border-right: 5px solid #007BFF;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+}
