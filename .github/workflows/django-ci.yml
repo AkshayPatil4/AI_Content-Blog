@@ -28,7 +28,10 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install django djangorestframework django-debug-toolbar
-
+      
+      - name: Install gettext
+        run: sudo apt-get update && sudo apt-get install -y gettext    
+          
       - name: Run Migrations
         run: |
           source venv/bin/activate
