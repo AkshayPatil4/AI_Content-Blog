@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -73,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.context_processors.available_languages',
+                
             ],
         },
     },
@@ -114,10 +117,33 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
+
 LANGUAGES = [
-    ('en', _('English')),
-    ('ar', _('Arabic')),
+    ('en', 'English'),
+    ('fr', 'French'),
+    ('es', 'Spanish'),
+    ('de', 'German'),
+    ('it', 'Italian'),
+    ('pt', 'Portuguese'),
+    ('ru', 'Russian'),
+    ('zh-hans', 'Simplified Chinese'),
+    ('zh-hant', 'Traditional Chinese'),
+    ('ja', 'Japanese'),
+    ('ko', 'Korean'),
+    ('ar', 'Arabic'),
+    ('hi', 'Hindi'),
+    ('bn', 'Bengali'),
+    ('ur', 'Urdu'),
+    ('vi', 'Vietnamese'),
+    ('fa', 'Persian'),
+    ('tr', 'Turkish'),
+    ('pl', 'Polish'),
+    ('nl', 'Dutch'),
 ]
+
+
+
+
 
 LANGUAGE_CODE = 'en-us'
 

@@ -1,0 +1,12 @@
+{% extends "admin/index.html" %}
+{% load i18n static %}
+
+{% block content %}
+  <div style="margin-bottom: 20px;">
+    <!-- Custom link to add language translations -->
+    <a href="{% url 'admin:add_language_translation' %}" style="font-size: 16px; font-weight: bold;">
+      Add Language Translation
+    </a>
+  </div>
+  {{ block.super }}
+{% endblock %}

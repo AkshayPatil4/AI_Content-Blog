@@ -1,15 +1,18 @@
-from django.contrib import admin
-from django.conf.urls.i18n import i18n_patterns
-from django.urls import path, include
-from django.conf import settings
+from django.urls import path, re_path, include
 from django.views.i18n import set_language
+from django.contrib import admin
+from django.shortcuts import redirect
+from blog.admin import admin_site
 
-urlpatterns = i18n_patterns(
-    path('admin/', admin.site.urls),
-    path('api/', include('blog.urls')),
-    path('', include('blog.urls')),
+urlpatterns = [
+    # Redirect the empty path to the default language (e.g., English)
+    path('', lambda request: redirect('/en/', permanent=False)),
+    
+    # Use a dynamic pattern that accepts any two-letter language code
+    re_path(r'^(?P<language>[a-z]{2})/', include('blog.urls')),
+    
+    # URL for the set-language view
     path('set-language/', set_language, name='set_language'),
-)
-
-if settings.DEBUG:
-    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
+    
+    path('admin/', admin_site.urls),
+]
