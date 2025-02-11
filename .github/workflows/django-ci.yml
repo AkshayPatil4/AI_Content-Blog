@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/localization
+      - feature/restapi
   pull_request:
     branches:
       - main
