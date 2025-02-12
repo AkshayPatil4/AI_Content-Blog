@@ -58,7 +58,7 @@ jobs:
 
   deploy_baremetal:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - name: Download Docker Image Artifact
         uses: actions/download-artifact@v4
@@ -78,7 +78,7 @@ jobs:
 
   deploy_cloud:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
     steps:
       - name: Download Docker Image Artifact
         uses: actions/download-artifact@v4
