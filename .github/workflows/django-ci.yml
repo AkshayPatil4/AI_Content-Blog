@@ -56,7 +56,7 @@ jobs:
         run: |
           docker run --rm my-app:${{ github.sha }} python manage.py test
 
-  deploy:
+  deploy_baremetal:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -67,9 +67,32 @@ jobs:
           path: .
       - name: Load Docker Image
         run: docker load -i my-app-image.tar
-      - name: Simulate Deployment
+      - name: Simulate Bare Metal Deployment
         run: |
-          docker run -d --name deployed-app -p 8000:8000 my-app:${{ github.sha }}
+          # Run the container mapping container port 8000 to host port 8000 (typical for a bare metal server)
+          docker run -d --name deployed-app-baremetal -p 8000:8000 my-app:${{ github.sha }}
           sleep 10
-          curl -f http://localhost:8000 || (docker logs deployed-app && exit 1)
-          docker stop deployed-app
+          # Check if the app is accessible on port 8000
+          curl -f http://localhost:8000 || (docker logs deployed-app-baremetal && exit 1)
+          docker stop deployed-app-baremetal
+
+  deploy_cloud:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download Docker Image Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: .
+      - name: Load Docker Image
+        run: docker load -i my-app-image.tar
+      - name: Simulate Cloud Deployment
+        run: |
+          # Simulate a cloud deployment where the public port might be different,
+          # mapping container port 8000 to host port 8080 (for example, behind a load balancer)
+          docker run -d --name deployed-app-cloud -p 8080:8000 my-app:${{ github.sha }}
+          sleep 10
+          # Check if the app is accessible on port 8080
+          curl -f http://localhost:8080 || (docker logs deployed-app-cloud && exit 1)
+          docker stop deployed-app-cloud
