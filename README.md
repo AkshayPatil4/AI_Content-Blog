@@ -11,7 +11,7 @@
 - **Admin panel** for managing translations via UI
 - **Dockerized setup** for easy deployment
 - **CI/CD pipeline with GitHub Actions** for automated build, testing, and deployment simulation
-- **For User stories checkout projects section
+- **For User stories** checkout projects section
 
 ## 📦 Running the Project (Using Docker)
 
