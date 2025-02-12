@@ -18,22 +18,25 @@ jobs:
       image-tag: ${{ steps.build.outputs.image-tag }}
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Build Docker Image
         id: build
         run: |
+          # Build the image using your Dockerfile in the repository root
           docker build -t my-app:latest .
+          # Tag the image with the Git SHA for uniqueness
           IMAGE_TAG="my-app:${{ github.sha }}"
           docker tag my-app:latest $IMAGE_TAG
           echo "::set-output name=image-tag::$IMAGE_TAG"
+          # Save the image as a tarball for use in later jobs
           docker save $IMAGE_TAG -o my-app-image.tar
 
       - name: Upload Docker Image Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: docker-image
           path: my-app-image.tar
@@ -43,7 +46,7 @@ jobs:
     needs: build
     steps:
       - name: Download Docker Image Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: docker-image
           path: .
@@ -58,7 +61,7 @@ jobs:
     needs: build
     steps:
       - name: Download Docker Image Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: docker-image
           path: .
