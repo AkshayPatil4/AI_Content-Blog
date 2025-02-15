@@ -37,7 +37,7 @@ This will start the Django application inside a Docker container.
 
 You can log in to the admin panel using the credentials:  
 **Username:** `admin`  
-**Password:** `admin`  
+**Password:** `admin123`  
 
 ## 🏗 CI/CD Pipeline
 
