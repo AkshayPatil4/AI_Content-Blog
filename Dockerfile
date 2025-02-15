@@ -20,6 +20,7 @@ RUN pip install --upgrade pip && pip install django djangorestframework django-d
 
 # Copying the entire project into the container
 COPY . /app/
+COPY locale /app/locale
 
 # Ensure environment variables are available inside the container
 ENV SECRET_KEY="insecure-secret-key-for-build"
@@ -46,24 +47,6 @@ RUN echo "from django.contrib.auth import get_user_model; \
 # Exposeing the port Gunicorn will run on
 EXPOSE 8000
 
+
 # Starting the application using Gunicorn. 
-CMD gunicorn ai_blog.wsgi:application --bind 0.0.0.0:8000 & \
-    sleep 10 && \
-    curl -X POST http://localhost:8000/admin/add-language-translation/ -H "Content-Type: application/json" -d '{
-        "language": "ar",
-        "translations": {
-            "English": "الإنجليزية",
-            "Arabic": "العربية",
-            "AI Blog": "مدونة الذكاء الاصطناعي",
-            "Welcome to AI Blog": "مرحبًا بك في مدونة الذكاء الاصطناعي",
-            "All rights reserved.": "جميع الحقوق محفوظة.",
-            "Latest AI Articles": "أحدث مقالات الذكاء الاصطناعي",
-            "The Future of AI": "مستقبل الذكاء الاصطناعي",
-            "Artificial Intelligence is evolving rapidly and impacting various industries. From healthcare to finance, AI is transforming the way we work and live.": "الذكاء الاصطناعي يتطور بسرعة ويؤثر على مختلف الصناعات. من الرعاية الصحية إلى التمويل، يعمل الذكاء الاصطناعي على تغيير طريقة عملنا وحياتنا.",
-            "AI in Healthcare": "الذكاء الاصطناعي في الرعاية الصحية",
-            "AI is being used to diagnose diseases, develop personalized treatments, and even assist in surgeries. The potential of AI in medicine is limitless.": "يُستخدم الذكاء الاصطناعي لتشخيص الأمراض، وتطوير العلاجات الشخصية، وحتى المساعدة في العمليات الجراحية. إمكانيات الذكاء الاصطناعي في الطب لا حدود لها.",
-            "The Role of AI in Automation": "دور الذكاء الاصطناعي في الأتمتة",
-            "Automation powered by AI is revolutionizing industries by improving efficiency and reducing human effort in repetitive tasks.": "تعمل الأتمتة المدعومة بالذكاء الاصطناعي على تغيير الصناعات من خلال تحسين الكفاءة وتقليل الجهد البشري في المهام المتكررة."
-        }
-    }' && \
-    fg
+CMD ["gunicorn", "ai_blog.wsgi:application", "--bind", "0.0.0.0:8000"]
