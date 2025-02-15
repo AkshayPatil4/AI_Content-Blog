@@ -21,5 +21,13 @@ def available_languages(request):
                 break
         else:
             available.append(('en', 'English'))
+            
+    if 'ar' not in langs_in_db:
+        for code, name in settings.LANGUAGES:
+            if code == 'ar':
+                available.append((code, name))
+                break
+        else:
+            available.append(('ar', 'Arabic'))          
     
     return {'LANGUAGES': available}
